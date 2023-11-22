@@ -1,4 +1,4 @@
-import Cpf from '../../../common/domain/value-objects/cpf.vo';
+import Cpf from '../../../../common/domain/value-objects/cpf.vo';
 import { Customer, CustomerId } from '../customer.entity';
 
 test('Deve criar um cliente', () => {
