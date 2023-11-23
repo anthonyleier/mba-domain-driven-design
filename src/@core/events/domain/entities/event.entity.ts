@@ -2,9 +2,10 @@
 //     sections - basico, camarote, vip (preço)
 //         spots - tá reservado?, localização
 
-import { AggregateRoot } from 'src/@core/common/domain/aggregate-root';
+import { AggregateRoot } from '../../../common/domain/aggregate-root';
 import Uuid from '../../../common/domain/value-objects/uuid.vo';
 import { PartnerId } from './partner.entity';
+import { EventSection } from './event-section';
 
 export class EventId extends Uuid {}
 
@@ -25,6 +26,7 @@ export type EventConstructorProps = {
   total_spots: number;
   total_spots_reserved: number;
   partner_id: PartnerId | string;
+  sections?: Set<EventSection>;
 };
 
 export class Event extends AggregateRoot {
@@ -33,6 +35,7 @@ export class Event extends AggregateRoot {
   description: string | null;
   date: Date;
   is_published: boolean; // Desativar vendas, caso necessário
+  sections: Set<EventSection>; // Array normal? E se tiver seções repetidas?
 
   total_spots: number;
   total_spots_reserved: number;
@@ -56,6 +59,8 @@ export class Event extends AggregateRoot {
       props.partner_id instanceof PartnerId
         ? props.partner_id
         : new PartnerId(props.partner_id);
+
+    this.sections = props.sections ?? new Set<EventSection>();
   }
 
   static create(command: EventCreateCommand) {
@@ -78,6 +83,7 @@ export class Event extends AggregateRoot {
       total_spots: this.total_spots,
       total_spots_reserved: this.total_spots_reserved,
       partner_id: this.partner_id,
+      sections: [...this.sections].map((section) => section.toJSON())
     };
   }
 }
