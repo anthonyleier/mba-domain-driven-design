@@ -80,6 +80,31 @@ export class Event extends AggregateRoot {
     });
   }
 
+  changeName(name: string) {
+    this.name = name;
+  }
+
+  changeDescription(description: string | null) {
+    this.description = description;
+  }
+
+  changeDate(date: Date) {
+    this.date = date;
+  }
+
+  publish() {
+    this.is_published = true;
+  }
+
+  unPublish() {
+    this.is_published = false;
+  }
+
+  publishAll() {
+    this.publish();
+    this.sections.forEach((section) => section.publishAll());
+  }
+
   addSection(command: AddSectionCommand) {
     const section = EventSection.create(command);
     this.sections.add(section);
