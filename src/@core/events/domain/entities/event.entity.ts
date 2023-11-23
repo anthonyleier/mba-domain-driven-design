@@ -9,6 +9,13 @@ import { EventSection } from './event-section';
 
 export class EventId extends Uuid {}
 
+export type AddSectionCommand = {
+  name: string;
+  description?: string | null;
+  total_spots: number;
+  price: number;
+};
+
 export type EventCreateCommand = {
   name: string;
   description?: string | null;
@@ -73,6 +80,12 @@ export class Event extends AggregateRoot {
     });
   }
 
+  addSection(command: AddSectionCommand) {
+    const section = EventSection.create(command);
+    this.sections.add(section);
+    this.total_spots += section.total_spots;
+  }
+
   toJSON() {
     return {
       id: this.id.value,
@@ -83,7 +96,7 @@ export class Event extends AggregateRoot {
       total_spots: this.total_spots,
       total_spots_reserved: this.total_spots_reserved,
       partner_id: this.partner_id,
-      sections: [...this.sections].map((section) => section.toJSON())
+      sections: [...this.sections].map((section) => section.toJSON()),
     };
   }
 }

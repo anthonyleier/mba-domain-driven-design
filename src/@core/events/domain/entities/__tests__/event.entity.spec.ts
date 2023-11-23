@@ -11,17 +11,14 @@ test('Deve criar um evento', () => {
     partner_id: new PartnerId(),
   });
 
-  const section = EventSection.create({
+  event.addSection({
     name: 'Sessão 1',
     description: 'Descrição da sessão 1',
     total_spots: 100,
     price: 1000,
   });
+  expect(event.total_spots).toBe(100);
 
-  const spot = EventSpot.create();
-
-  section.spots.add(spot);
-  event.sections.add(section);
-
-  console.dir(event.toJSON(), {depth: 10});
+  const [section] = event.sections;
+  expect(section.spots.size).toBe(100);
 });
