@@ -125,3 +125,14 @@ export class Event extends AggregateRoot {
     };
   }
 }
+
+// Dependendo da biblioteca de banco, não é necessário
+// class EventMapper {
+//   static toDomain(raw: any): Event {
+//     return;
+//   }
+
+//   static toPersistence(event: Event): any {
+//     return;
+//   }
+// }
