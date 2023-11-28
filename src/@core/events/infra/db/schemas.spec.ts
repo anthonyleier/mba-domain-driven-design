@@ -11,6 +11,7 @@ test('Deve criar um partner', async () => {
     user: 'root',
     password: 'root',
     type: 'mysql',
+    forceEntityConstructor: true,
   });
 
   await orm.schema.refreshDatabase();
