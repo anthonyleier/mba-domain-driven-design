@@ -1,3 +1,8 @@
+import {
+  AnyCollection,
+  ICollection,
+  MyCollectionFactory,
+} from '../../../common/domain/my-collection';
 import { Entity } from '../../../common/domain/entity';
 import Uuid from '../../../common/domain/value-objects/uuid.vo';
 import { EventSpot } from './event-spot';
@@ -20,7 +25,6 @@ export type EventSectionConstructorProps = {
   total_spots: number;
   total_spots_reserved: number;
   price: number;
-  spots?: Set<EventSpot>;
 };
 
 export class EventSection extends Entity {
@@ -28,7 +32,7 @@ export class EventSection extends Entity {
   name: string;
   description: string | null;
   is_published: boolean; // Desativar vendas, caso necessário
-  spots: Set<EventSpot>; // Array normal? E se tiver seções repetidas?
+  private _spots: ICollection<EventSpot>; // Array normal? E se tiver seções repetidas?
 
   total_spots: number;
   total_spots_reserved: number;
@@ -47,7 +51,7 @@ export class EventSection extends Entity {
     this.total_spots = props.total_spots;
     this.total_spots_reserved = props.total_spots_reserved;
     this.price = props.price;
-    this.spots = props.spots ?? new Set<EventSpot>();
+    this._spots = MyCollectionFactory.create<EventSpot>(this);
   }
 
   static create(command: EventSectionCreateCommand) {
@@ -91,6 +95,14 @@ export class EventSection extends Entity {
   publishAll() {
     this.publish();
     this.spots.forEach((spots) => spots.publish());
+  }
+
+  get spots(): ICollection<EventSpot> {
+    return this._spots as ICollection<EventSpot>;
+  }
+
+  set spots(spots: AnyCollection<EventSpot>) {
+    this._spots = MyCollectionFactory.create<EventSpot>(spots);
   }
 
   toJSON() {
