@@ -10,7 +10,7 @@ import {
   AnyCollection,
   ICollection,
   MyCollectionFactory,
-} from 'src/@core/common/domain/my-collection';
+} from '../../../common/domain/my-collection';
 
 export class EventId extends Uuid {}
 
