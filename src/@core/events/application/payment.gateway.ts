@@ -6,3 +6,5 @@ export class PaymentGateway {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   async payment({ token, amount }): Promise<any> {}
 }
+
+// ACL - Anti Corruption Layer (Mapas de Contexto)
