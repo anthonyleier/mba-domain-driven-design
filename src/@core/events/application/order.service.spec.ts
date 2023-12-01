@@ -18,7 +18,7 @@ import { OrderService } from './order.service';
 import { OrderMysqlRepository } from '../infra/db/repositories/order-mysql.repository';
 import { SpotReservationMysqlRepository } from '../infra/db/repositories/spot-reservation-mysql.repository';
 
-test('Deve criar uma order', async () => {
+test('deve criar uma order', async () => {
   const orm = await MikroORM.init<MySqlDriver>({
     entities: [
       CustomerSchema,
@@ -78,8 +78,8 @@ test('Deve criar uma order', async () => {
   const spotReservationRepo = new SpotReservationMysqlRepository(em);
   const orderService = new OrderService(
     orderRepo,
-    eventRepo,
     customerRepo,
+    eventRepo,
     spotReservationRepo,
     unitOfWork,
   );
