@@ -11,6 +11,7 @@ import {
   ICollection,
   MyCollectionFactory,
 } from '../../../common/domain/my-collection';
+import { EventSpotId } from './event-spot';
 
 export class EventId extends Uuid {}
 
@@ -127,6 +128,18 @@ export class Event extends AggregateRoot {
 
     'name' in command && section.changeName(command.name);
     'description' in command && section.changeName(command.description);
+  }
+
+  changeLocation(command: {
+    section_id: EventSectionId;
+    spot_id: EventSpotId;
+    location: string;
+  }) {
+    const section = this.sections.find((section) =>
+      section.id.equals(command.section_id),
+    );
+    if (!section) throw new Error('Section not found');
+    section.changeLocation(command);
   }
 
   get sections(): ICollection<EventSection> {

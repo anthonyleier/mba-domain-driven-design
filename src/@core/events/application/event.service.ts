@@ -44,6 +44,20 @@ export class EventService {
     if (!event) throw new Error('Event not found');
     const sectionId = new EventSectionId(input.section_id);
     const spotId = new EventSpotId(input.spot_id);
+
+    event.changeLocation({
+      section_id: sectionId,
+      spot_id: spotId,
+      location: input.location,
+    });
+    await this.eventRepo.add(event);
+
+    const section = event.sections.find((section) =>
+      section.id.equals(new EventSectionId(input.section_id)),
+    );
+    await this.uow.commit();
+
+    return section.spots.find((spot) => spot.id.equals(spotId));
   }
 
   async addSection(input: {
@@ -114,7 +128,6 @@ export class EventService {
     input: { name?: string; description?: string; date?: Date },
   ) {
     const event = await this.eventRepo.findById(id);
-
     if (!event) throw new Error('Event not found');
 
     input.name && event.changeName(input.name);
@@ -122,6 +135,16 @@ export class EventService {
     input.date && event.changeDate(input.date);
 
     this.eventRepo.add(event);
+    await this.uow.commit();
+    return event;
+  }
+
+  async publishAll(input: { event_id: string }) {
+    const event = await this.eventRepo.findById(input.event_id);
+    if (!event) throw new Error('Event not found');
+    event.publishAll();
+
+    await this.eventRepo.add(event);
     await this.uow.commit();
     return event;
   }
