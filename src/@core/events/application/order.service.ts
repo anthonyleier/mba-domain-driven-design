@@ -49,22 +49,35 @@ export class OrderService {
     });
 
     await this.spotReservationRepo.add(spotReservationCreated);
+    try {
+      await this.uow.commit();
+      // pagamento
+      const section = event.sections.find((s) => s.id.equals(sectionId));
 
-    const section = event.sections.find((s) => s.id.equals(sectionId));
+      const order = Order.create({
+        customer_id: customer.id,
+        event_spot_id: spotId,
+        amount: section.price,
+      });
 
-    const order = Order.create({
-      customer_id: customer.id,
-      event_spot_id: spotId,
-      amount: section.price,
-    });
+      await this.orderRepo.add(order);
 
-    await this.orderRepo.add(order);
+      event.markSpotAsReserved({
+        section_id: sectionId,
+        spot_id: spotId,
+      });
+      return order;
+    } catch (e) {
+      const section = event.sections.find((s) => s.id.equals(sectionId));
 
-    event.markSpotAsReserved({
-      section_id: sectionId,
-      spot_id: spotId,
-    });
-    await this.uow.commit();
-    return order;
+      const order = Order.create({
+        customer_id: customer.id,
+        event_spot_id: spotId,
+        amount: section.price,
+      });
+
+      order.cancel();
+      await this.uow.commit();
+    }
   }
 }
