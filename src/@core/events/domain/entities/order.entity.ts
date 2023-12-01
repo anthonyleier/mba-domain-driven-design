@@ -1,8 +1,7 @@
-import Uuid from 'src/@core/common/domain/value-objects/uuid.vo';
+import Uuid from '../../../common/domain/value-objects/uuid.vo';
 import { CustomerId } from './customer.entity';
 import { EventSpotId } from './event-spot';
-import { AggregateRoot } from 'src/@core/common/domain/aggregate-root';
-import { prependOnceListener } from 'process';
+import { AggregateRoot } from '../../../common/domain/aggregate-root';
 
 export class OrderId extends Uuid {}
 

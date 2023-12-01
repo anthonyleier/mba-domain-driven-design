@@ -116,6 +116,16 @@ export class Event extends AggregateRoot {
     this.total_spots += section.total_spots;
   }
 
+  markSpotAsReserved(command: {
+    section_id: EventSectionId;
+    spot_id: EventSpotId;
+  }) {
+    const section = this.sections.find((s) => s.id.equals(command.section_id));
+    if (!section) throw new Error('Section not found');
+
+    section.markSpotAsReserved(command.spot_id)
+  }
+
   changeSectionInformation(command: {
     section_id: EventSectionId;
     name?: string;

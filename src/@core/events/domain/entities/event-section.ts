@@ -102,6 +102,12 @@ export class EventSection extends Entity {
     this.publish();
     this.spots.forEach((spots) => spots.publish());
   }
+  markSpotAsReserved(spot_id: EventSpotId) {
+    const spot = this.spots.find((spot) => spot.id.equals(spot_id));
+    if (!spot) throw new Error('Spot not found');
+    if (spot.is_reserved) throw new Error('Spot already reserved');
+    spot.markAsReserved();
+  }
 
   allowReserveSpot(spot_id: EventSpotId) {
     if (!this.is_published) {

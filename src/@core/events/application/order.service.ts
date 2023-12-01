@@ -40,7 +40,7 @@ export class OrderService {
       throw new Error('Spot not available');
     }
 
-    const spotReservation = this.spotReservationRepo.findById(spotId);
+    const spotReservation = await this.spotReservationRepo.findById(spotId);
     if (spotReservation) throw new Error('Spot already reserved');
 
     const spotReservationCreated = SpotReservation.create({
@@ -59,7 +59,12 @@ export class OrderService {
     });
 
     await this.orderRepo.add(order);
-    this.uow.commit();
+
+    event.markSpotAsReserved({
+      section_id: sectionId,
+      spot_id: spotId,
+    });
+    await this.uow.commit();
     return order;
   }
 }

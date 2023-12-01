@@ -1,7 +1,7 @@
 import { EntityManager } from '@mikro-orm/mysql';
-import { EventSpotId } from 'src/@core/events/domain/entities/event-spot';
-import { SpotReservation } from 'src/@core/events/domain/entities/spot-reservation';
-import { ISpotReservationRepository } from 'src/@core/events/domain/repositories/spot-reservation-repository';
+import { EventSpotId } from '../../../../events/domain/entities/event-spot';
+import { SpotReservation } from '../../../../events/domain/entities/spot-reservation';
+import { ISpotReservationRepository } from '../../../../events/domain/repositories/spot-reservation-repository';
 
 export class SpotReservationMysqlRepository
   implements ISpotReservationRepository
@@ -12,9 +12,9 @@ export class SpotReservationMysqlRepository
     this.entityManager.persist(entity);
   }
 
-  async findById(id: string | EventSpotId): Promise<SpotReservation | null> {
+  async findById(spot_id: string | EventSpotId): Promise<SpotReservation | null> {
     return this.entityManager.findOne(SpotReservation, {
-      id: typeof id === 'string' ? new EventSpotId(id) : id,
+      spot_id: typeof spot_id === 'string' ? new EventSpotId(spot_id) : spot_id,
     });
   }
 

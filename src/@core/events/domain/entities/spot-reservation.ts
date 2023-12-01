@@ -1,4 +1,4 @@
-import { AggregateRoot } from 'src/@core/common/domain/aggregate-root';
+import { AggregateRoot } from '../../../common/domain/aggregate-root';
 import { CustomerId } from './customer.entity';
 import { EventSpotId } from './event-spot';
 
