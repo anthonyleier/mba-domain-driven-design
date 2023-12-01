@@ -103,6 +103,19 @@ export class EventSection extends Entity {
     this.spots.forEach((spots) => spots.publish());
   }
 
+  allowReserveSpot(spot_id: EventSpotId) {
+    if (!this.is_published) {
+      return false;
+    }
+
+    const spot = this.spots.find((s) => s.id.equals(spot_id));
+    if (!spot) throw new Error('Section not found');
+
+    if (spot.is_reserved) return false;
+    if (!spot.is_published) return false;
+    return true;
+  }
+
   get spots(): ICollection<EventSpot> {
     return this._spots as ICollection<EventSpot>;
   }

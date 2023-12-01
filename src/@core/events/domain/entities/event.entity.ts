@@ -142,6 +142,17 @@ export class Event extends AggregateRoot {
     section.changeLocation(command);
   }
 
+  allowReserveSpot(data: { section_id: EventSectionId; spot_id: EventSpotId }) {
+    if (!this.is_published) {
+      return false;
+    }
+
+    const section = this.sections.find((s) => s.id.equals(data.section_id));
+    if (!section) throw new Error('Section not found');
+
+    return section.allowReserveSpot(data.spot_id);
+  }
+
   get sections(): ICollection<EventSection> {
     return this._sections as ICollection<EventSection>;
   }
