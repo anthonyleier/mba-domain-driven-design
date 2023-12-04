@@ -10,7 +10,7 @@ import { EventSection } from '../../domain/entities/event-section';
 import { EventSectionIdSchemaType } from './types/event-section-id.schema-type';
 import { EventSpot } from '../../domain/entities/event-spot';
 import { EventSpotIdSchemaType } from './types/event-spot-id.schema-type';
-import { SpotReservation } from '../../domain/entities/spot-reservation';
+import { SpotReservation } from '../../domain/entities/spot-reservation.entity';
 import { Order, OrderStatus } from '../../domain/entities/order.entity';
 import { OrderIdSchemaType } from './types/order-id.schema.type';
 

@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/mysql';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { UnitOfWorkMikroOrm } from 'src/@core/common/infra/unit-of-work-mikro-orm';
 import {
   CustomerSchema,
