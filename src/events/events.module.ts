@@ -26,6 +26,8 @@ import {
   PartnerSchema,
   SpotReservationSchema,
 } from 'src/@core/events/infra/db/schemas';
+import { PartnersController } from './partners/partners.controller';
+import { CustomersController } from './customers/customers.controller';
 
 @Module({
   imports: [
@@ -117,5 +119,6 @@ import {
       ],
     },
   ],
+  controllers: [PartnersController, CustomersController],
 })
 export class EventsModule {}
