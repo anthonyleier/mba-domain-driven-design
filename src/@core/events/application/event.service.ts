@@ -12,7 +12,7 @@ export class EventService {
     private uow: IUnitOfWork,
   ) {}
 
-  list() {
+  findEvents() {
     return this.eventRepo.findAll();
   }
 

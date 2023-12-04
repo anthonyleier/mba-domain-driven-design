@@ -141,6 +141,7 @@ export const SpotReservationSchema = new EntitySchema<SpotReservation>({
       mapToPk: true,
       primary: true,
     },
+    reservation_date: { type: 'date' },
     customer_id: {
       customType: new CustomerIdSchemaType(),
       reference: 'm:1',

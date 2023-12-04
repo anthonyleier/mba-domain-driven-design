@@ -123,7 +123,7 @@ export class Event extends AggregateRoot {
     const section = this.sections.find((s) => s.id.equals(command.section_id));
     if (!section) throw new Error('Section not found');
 
-    section.markSpotAsReserved(command.spot_id)
+    section.markSpotAsReserved(command.spot_id);
   }
 
   changeSectionInformation(command: {
@@ -137,7 +137,7 @@ export class Event extends AggregateRoot {
     if (!section) throw new Error('Section not found');
 
     'name' in command && section.changeName(command.name);
-    'description' in command && section.changeName(command.description);
+    'description' in command && section.changeDescription(command.description);
   }
 
   changeLocation(command: {
@@ -180,7 +180,7 @@ export class Event extends AggregateRoot {
       is_published: this.is_published,
       total_spots: this.total_spots,
       total_spots_reserved: this.total_spots_reserved,
-      partner_id: this.partner_id,
+      partner_id: this.partner_id.value,
       _sections: [...this._sections].map((section) => section.toJSON()),
     };
   }

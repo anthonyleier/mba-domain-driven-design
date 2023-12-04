@@ -115,7 +115,7 @@ export class EventSection extends Entity {
     }
 
     const spot = this.spots.find((s) => s.id.equals(spot_id));
-    if (!spot) throw new Error('Section not found');
+    if (!spot) throw new Error('Spot not found');
 
     if (spot.is_reserved) return false;
     if (!spot.is_published) return false;
