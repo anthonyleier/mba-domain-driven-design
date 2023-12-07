@@ -12,7 +12,7 @@ import { EventSpot } from '../../domain/entities/event-spot';
 import { EventSpotIdSchemaType } from './types/event-spot-id.schema-type';
 import { SpotReservation } from '../../domain/entities/spot-reservation.entity';
 import { Order, OrderStatus } from '../../domain/entities/order.entity';
-import { OrderIdSchemaType } from './types/order-id.schema.type';
+import { OrderIdSchemaType } from './types/order-id.schema-type';
 
 export const PartnerSchema = new EntitySchema<Partner>({
   class: Partner,
