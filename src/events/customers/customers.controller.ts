@@ -1,12 +1,12 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { CustomerService } from 'src/@core/events/application/customer.service';
+import { CustomerService } from '../../@core/events/application/customer.service';
 
 @Controller('customers')
 export class CustomersController {
   constructor(private customerService: CustomerService) {}
 
   @Get()
-  list() {
+  async list() {
     return this.customerService.list();
   }
 

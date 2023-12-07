@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { PartnerService } from 'src/@core/events/application/partner.service';
+import { PartnerService } from '../../@core/events/application/partner.service';
 
 @Controller('partners')
 export class PartnersController {

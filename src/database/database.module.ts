@@ -1,7 +1,5 @@
-import { EntityManager } from '@mikro-orm/mysql';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Global, Module } from '@nestjs/common';
-import { UnitOfWorkMikroOrm } from 'src/@core/common/infra/unit-of-work-mikro-orm';
 import {
   CustomerSchema,
   EventSchema,
@@ -10,7 +8,10 @@ import {
   OrderSchema,
   PartnerSchema,
   SpotReservationSchema,
-} from 'src/@core/events/infra/db/schemas';
+} from '../@core/events/infra/db/schemas';
+import { EntityManager } from '@mikro-orm/mysql';
+import { UnitOfWorkMikroOrm } from '../@core/common/infra/unit-of-work-mikro-orm';
+import { StoredEventSchema } from '../@core/stored-events/infra/db/schemas';
 
 @Global()
 @Module({
@@ -24,6 +25,7 @@ import {
         EventSpotSchema,
         OrderSchema,
         SpotReservationSchema,
+        StoredEventSchema,
       ],
       dbName: 'events',
       host: 'localhost',

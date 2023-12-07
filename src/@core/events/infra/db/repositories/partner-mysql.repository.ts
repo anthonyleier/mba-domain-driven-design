@@ -9,13 +9,13 @@ export class PartnerMysqlRepository implements IPartnerRepository {
     this.entityManager.persist(entity);
   }
 
-  async findById(id: string | PartnerId): Promise<Partner | null> {
-    return this.entityManager.findOne(Partner, {
+  findById(id: string | PartnerId): Promise<Partner | null> {
+    return this.entityManager.findOneOrFail(Partner, {
       id: typeof id === 'string' ? new PartnerId(id) : id,
     });
   }
 
-  async findAll(): Promise<Partner[]> {
+  findAll(): Promise<Partner[]> {
     return this.entityManager.find(Partner, {});
   }
 

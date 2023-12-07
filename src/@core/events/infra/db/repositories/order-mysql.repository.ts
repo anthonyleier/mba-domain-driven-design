@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/mysql';
 import { Order, OrderId } from '../../../domain/entities/order.entity';
-import { IOrderRepository } from '../../../../events/domain/repositories/order-repository.interface';
+import { IOrderRepository } from '../../../domain/repositories/order-repository.interface';
 
 export class OrderMysqlRepository implements IOrderRepository {
   constructor(private entityManager: EntityManager) {}
@@ -9,7 +9,7 @@ export class OrderMysqlRepository implements IOrderRepository {
     this.entityManager.persist(entity);
   }
 
-  async findById(id: string | OrderId): Promise<Order | null> {
+  async findById(id: string | OrderId): Promise<Order> {
     return this.entityManager.findOne(Order, {
       id: typeof id === 'string' ? new OrderId(id) : id,
     });
@@ -20,6 +20,6 @@ export class OrderMysqlRepository implements IOrderRepository {
   }
 
   async delete(entity: Order): Promise<void> {
-    this.entityManager.remove(entity);
+    await this.entityManager.remove(entity);
   }
 }

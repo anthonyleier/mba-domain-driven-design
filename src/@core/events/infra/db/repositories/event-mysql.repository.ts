@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/mysql';
 import { Event, EventId } from '../../../domain/entities/event.entity';
-import { IEventRepository } from '../../../../events/domain/repositories/event-repository.interface';
+import { IEventRepository } from '../../../domain/repositories/event-repository.interface';
 
 export class EventMysqlRepository implements IEventRepository {
   constructor(private entityManager: EntityManager) {}
@@ -9,7 +9,7 @@ export class EventMysqlRepository implements IEventRepository {
     this.entityManager.persist(entity);
   }
 
-  async findById(id: string | EventId): Promise<Event | null> {
+  async findById(id: string | EventId): Promise<Event> {
     return this.entityManager.findOne(Event, {
       id: typeof id === 'string' ? new EventId(id) : id,
     });
@@ -20,6 +20,6 @@ export class EventMysqlRepository implements IEventRepository {
   }
 
   async delete(entity: Event): Promise<void> {
-    this.entityManager.remove(entity);
+    await this.entityManager.remove(entity);
   }
 }

@@ -1,6 +1,6 @@
 import { EntityManager } from '@mikro-orm/mysql';
 import { Customer, CustomerId } from '../../../domain/entities/customer.entity';
-import { ICustomerRepository } from '../../../../events/domain/repositories/customer-repository.interface';
+import { ICustomerRepository } from '../../../domain/repositories/customer-repository.interface';
 
 export class CustomerMysqlRepository implements ICustomerRepository {
   constructor(private entityManager: EntityManager) {}
@@ -9,7 +9,7 @@ export class CustomerMysqlRepository implements ICustomerRepository {
     this.entityManager.persist(entity);
   }
 
-  async findById(id: string | CustomerId): Promise<Customer | null> {
+  async findById(id: string | CustomerId): Promise<Customer> {
     return this.entityManager.findOne(Customer, {
       id: typeof id === 'string' ? new CustomerId(id) : id,
     });
@@ -20,6 +20,6 @@ export class CustomerMysqlRepository implements ICustomerRepository {
   }
 
   async delete(entity: Customer): Promise<void> {
-    this.entityManager.remove(entity);
+    await this.entityManager.remove(entity);
   }
 }
