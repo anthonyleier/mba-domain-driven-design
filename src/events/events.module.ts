@@ -157,8 +157,9 @@ export class EventsModule implements OnModuleInit {
     console.log('EventsModule initialized');
     MyHandlerHandler.listensTo().forEach((eventName: string) => {
       this.domainEventManager.register(eventName, async (event) => {
-        const handler: MyHandlerHandler =
-          await this.moduleRef.resolve(MyHandlerHandler);
+        const handler: MyHandlerHandler = await this.moduleRef.resolve(
+          MyHandlerHandler,
+        );
         await handler.handle(event);
       });
     });
