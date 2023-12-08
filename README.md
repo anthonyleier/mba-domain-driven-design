@@ -1,8 +1,10 @@
-# MBA Full Cycle - Domain Driven Design
+# Domain Driven Design - MBA Fullcycle
 
-Este repositório contém o código-fonte e material didático do curso de Domain Driven Design do MBA Full Cycle.
+Este repositório contém o projeto desenvolvido nas aulas de DDD (Domain Driven Design) para o MBA Fullcycle.
 
-O projeto é feito com Nestjs, mas o conteúdo é independente de linguagem ou framework.
+O projeto foi realizado com NestJS, agregando conhecimentos de NodeJS e Typescript.
+
+Porém, os conceitos e conteúdos são independentes de linguagem ou framework.
 
 ## Pré-requisitos
 
@@ -11,7 +13,7 @@ O projeto é feito com Nestjs, mas o conteúdo é independente de linguagem ou f
 
 ## Executar o projeto
 
-Suba as aplicações MySQL, RabbitMQ e Redis:
+Para subir os serviços necessários, as aplicações MySQL, RabbitMQ e Redis:
 
 ```bash
 docker-compose up -d
@@ -23,7 +25,7 @@ Instale as dependências do Node.js:
 npm install
 ```
 
-Use o arquivo `api.http` como referência para fazer as requisições HTTP. Este arquivo funciona com a extensão [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) do VSCode.
+Utilize o arquivo `api.http` como referência para fazer as requisições HTTP. Este arquivo funciona com a extensão [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) do VSCode.
 
 ## Professor
 
